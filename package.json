@@ -1,16 +1,22 @@
 {
   "name": "@rorysa/prettier-config",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Shareable prettier config for rory projects",
-  "main": "./index.ts",
+  "main": "./index.js",
+  "file": [
+    "index.js",
+    "package.json"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -p tsconfig.build.json"
   },
   "author": "Eunsoo Sa",
   "license": "ISC",
   "devDependencies": {
     "@types/prettier": "^2.7.2",
-    "prettier": "2.8.8"
+    "prettier": "2.8.8",
+    "typescript": "<4.4.0"
   },
   "peerDependencies": {
     "prettier": "2.8.8"
