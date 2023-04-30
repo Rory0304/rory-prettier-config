@@ -1,0 +1,21 @@
+{
+  "name": "@rory/prettier-config",
+  "version": "1.0.0",
+  "description": "Shareable prettier config for rory projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eunsoo Sa",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/prettier": "^2.7.2",
+    "prettier": "2.8.8"
+  },
+  "peerDependencies": {
+    "prettier": "2.8.8"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
