@@ -2,7 +2,7 @@
   "name": "@rorysa/prettier-config",
   "version": "1.0.0",
   "description": "Shareable prettier config for rory projects",
-  "main": "index.js",
+  "main": "./index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
