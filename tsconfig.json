@@ -1,10 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "module": "commonjs",
-    "lib": ["esnext"],
+    "lib": ["esnext", "es5", "es6"],
     "strict": true,
     "baseUrl": ".",
-    "typeRoots": ["node_modules/@types"]
-  }
+    "typeRoots": ["node_modules/@types"],
+    "declaration": true,
+    "outDir": "dist"
+  },
+  "include": ["./index.ts"]
 }
