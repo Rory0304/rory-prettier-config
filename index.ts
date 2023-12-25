@@ -37,9 +37,12 @@ const options: Options = {
   // Print trailing commas wherever possible in multi-line comma-separated syntactic structures.
   trailingComma: "es5",
 
+  // ref:https://prettier.io/docs/en/plugins
+  plugins: ["@trivago/prettier-plugin-sort-imports"],
+
   // ref: https://github.com/trivago/prettier-plugin-sort-imports
   importOrder: [
-    "^react",
+    "^react(.*)",
     "<THIRD_PARTY_MODULES>",
     "^app/(.*)$",
     "^pages/(.*)$",
@@ -49,6 +52,7 @@ const options: Options = {
     "^components/(.*)$",
     "^styles/(.*)$",
     "^types/(.*)$",
+    "^[./]",
   ],
 
   // ref: https://github.com/trivago/prettier-plugin-sort-imports
@@ -56,9 +60,6 @@ const options: Options = {
 
   // ref: https://github.com/trivago/prettier-plugin-sort-imports
   importOrderSortSpecifiers: true,
-
-  // ref:https://prettier.io/docs/en/plugins
-  plugins: ["@trivago/prettier-plugin-sort-imports"],
 };
 
 export default options;
