@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "lib": ["esnext", "es5", "es6", "dom"],
+    "target": "ES6",
+    "moduleResolution": "Node",
     "strict": true,
-    "baseUrl": ".",
     "typeRoots": ["node_modules/@types"],
     "declaration": true,
     "outDir": "dist"
   },
+  "files": ["./index.ts"],
   "include": ["./index.ts"]
 }
