@@ -1,6 +1,6 @@
 {
   "name": "@rorysa/prettier-config",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Shareable prettier config for rory projects",
   "main": "./dist/index.js",
   "files": [
