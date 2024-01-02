@@ -3,12 +3,12 @@
 - Easy to set simple prettier config to your toy project
 
 # How to use
-step1) Install this package
+step1) Install package
 ```
 yarn add --dev @rorysa/prettier-config  
 ```
 
-step2) make the file `.prettierrc.js` and write code like below
+step2) Make `.prettierrc.js` and write code below
 ```
 // If you use 'ESM'
 import config from '@rorysa/prettier-config';
@@ -18,4 +18,5 @@ export default config
 module.exports = require('@rorysa/prettier-config');
 ```
 
-# Make Log
+# Makerlog
+https://rory-log.vercel.app/prettier-config-module
