@@ -46,6 +46,26 @@ jobs:
           echo "NEW_VERSION=${NEW_VERSION}" >> $GITHUB_ENV
           echo "New version: ${NEW_VERSION}"
 
+      - name: Create Git Tag
+        run: |
+          git tag "v${{ env.NEW_VERSION }}"
+          git push origin "v${{ env.NEW_VERSION }}"
+
+        # Add this new step to create the GitHub release
+      - name: Create a GitHub Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          tag_name: ${{ env.NEW_VERSION }}
+          name: Release ${{ env.NEW_VERSION }}
+          body: |
+            This is an automated release for version ${{ env.NEW_VERSION }}.
+
+            **Changes:**
+            - (You can add automated release notes here, or link to a changelog)
+        env:
+          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+
       - name: Publish to NPM
         run: |
           echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
