@@ -39,18 +39,12 @@ jobs:
       - name: Bump Version
         run: |
           # Automatically bump patch version
-          yarn version patch --no-git-tag-version
+          yarn version --patch
 
           # Get the new version
           NEW_VERSION=$(node -p "require('./package.json').version")
           echo "NEW_VERSION=${NEW_VERSION}" >> $GITHUB_ENV
           echo "New version: ${NEW_VERSION}"
-
-      - name: Commit Version Change
-        run: |
-          git add package.json
-          git commit -m "chore: bump version to v${{ env.NEW_VERSION }} [skip ci]"
-          git push
 
       - name: Create Git Tag
         run: |
