@@ -46,6 +46,9 @@ jobs:
           echo "NEW_VERSION=${NEW_VERSION}" >> $GITHUB_ENV
           echo "New version: ${NEW_VERSION}"
 
+          yarn patch-commit
+
+
       - name: Create Git Tag
         run: |
           git tag "v${{ env.NEW_VERSION }}"
