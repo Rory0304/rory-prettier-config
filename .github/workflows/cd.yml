@@ -9,9 +9,15 @@ jobs:
   Publish:
     name: Auto version bump and publish
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
     steps:
       - name: Checkout Project
         uses: actions/checkout@v4
+        with:
+          # Need token with write permissions for pushing commits and tags
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Use Node.js v20
         uses: actions/setup-node@v4
@@ -20,10 +26,15 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install Dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
       - name: Building the app
         run: yarn run build
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Bump Version
         run: |
@@ -49,6 +60,6 @@ jobs:
       - name: Publish to NPM
         run: |
           echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
-          npm publish --access public --non-interactive --new-version ${{ env.NEW_VERSION }}
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
