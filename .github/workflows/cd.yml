@@ -39,21 +39,12 @@ jobs:
       - name: Bump Version
         run: |
           # Automatically bump patch version
-          yarn version --patch
+          yarn version --patch && git push && git push --tags
 
           # Get the new version
           NEW_VERSION=$(node -p "require('./package.json').version")
           echo "NEW_VERSION=${NEW_VERSION}" >> $GITHUB_ENV
           echo "New version: ${NEW_VERSION}"
-
-          yarn patch-commit
-
-
-      - name: Create Git Tag
-        run: |
-          git tag "v${{ env.NEW_VERSION }}"
-          git push origin "v${{ env.NEW_VERSION }}"
-
         # Add this new step to create the GitHub release
       - name: Create a GitHub Release
         uses: softprops/action-gh-release@v1
