@@ -1,6 +1,6 @@
 {
   "name": "@rorysa/prettier-config",
-  "version": "1.4.21",
+  "version": "1.4.22",
   "description": "Shareable prettier config for rory projects",
   "type": "module",
   "main": "./esm/index.js",
