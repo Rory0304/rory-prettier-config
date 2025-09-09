@@ -1,16 +1,28 @@
 import { defineConfig } from "tsup";
-
-export default defineConfig({
-  clean: true,
-  dts: true,
-  entry: ["./index.ts"],
-  format: ["cjs", "esm"],
-  minify: true,
-  skipNodeModulesBundle: true,
-  sourcemap: false,
-  tsconfig: "tsconfig.json",
-  keepNames: true,
-  treeshake: true,
-  bundle: true,
-  splitting: false,
-});
+export default defineConfig([
+  // ESM 빌드
+  {
+    entry: ["./index.ts"],
+    format: ["esm"],
+    outDir: "esm",
+    dts: true,
+    clean: true,
+    minify: true,
+    skipNodeModulesBundle: true,
+    treeshake: true,
+    tsconfig: "tsconfig.json",
+  },
+  // CJS 빌드
+  {
+    entry: ["./index.ts"],
+    format: ["cjs"],
+    outDir: "dist",
+    outExtension: () => ({ js: ".cjs" }),
+    dts: true,
+    clean: true,
+    minify: true,
+    skipNodeModulesBundle: true,
+    treeshake: true,
+    tsconfig: "tsconfig.json",
+  },
+]);
