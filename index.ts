@@ -1,7 +1,7 @@
 import type { PluginConfig as PrettierPluginSortConfig } from "@trivago/prettier-plugin-sort-imports";
-import type { Options as PrettierOptions } from "prettier";
+import type { Config as PrettierConfig } from "prettier";
 
-interface Options extends PrettierOptions, PrettierPluginSortConfig {}
+interface Options extends PrettierConfig, PrettierPluginSortConfig {}
 
 const options: Options = {
   // ref: https://prettier.io/docs/en/options.html#print-width
