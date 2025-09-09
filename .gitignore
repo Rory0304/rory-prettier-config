@@ -1,5 +1,6 @@
 # output
 /dist/*
+/esm/*
 /index.js
 
 # dependencies
