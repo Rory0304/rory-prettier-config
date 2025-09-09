@@ -1,4 +1,4 @@
-name: "cd(NPM): update on new release"
+name: "npm-release"
 
 on:
   release:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   Publish:
-    name: CD(NPM): update on new release
+    name: update on new release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Project
