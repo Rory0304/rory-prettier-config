@@ -1,33 +1,23 @@
 name: "cd"
 
 on:
-  workflow_dispatch:
-    inputs:
-      prNumber:
-        description: The number of the PR that is being deployed
-        required: true
-      ref:
-        description: The branch that is being deployed. Should be a branch on the given repository
-        required: false
-        default: main
   push:
     branches:
       - main
 
 jobs:
   Publish:
-    name: next version bump
+    name: Auto version bump and publish
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Project
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.inputs.ref || 'main' }}
 
       - name: Use Node.js v20
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install Dependencies
         run: yarn install
@@ -35,12 +25,29 @@ jobs:
       - name: Building the app
         run: yarn run build
 
-      - name: Bump Version & Publish
+      - name: Bump Version
         run: |
-          # Resolve the tag to be used. "next" for push events, "pr-{prNumber}" for dispatch events.
-          TAG=$([[ ${{ github.event_name }} == 'push' ]] && echo 'next' || echo 'pr-${{ github.event.inputs.prNumber }}')
-          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
-          pnpm run bump -n "@${{ github.repository }}" -p . --preid "${TAG}.$(git rev-parse --verify --short HEAD)"
-          pnpm publish --access public --no-git-checks --tag ${TAG}
+          # Automatically bump patch version
+          yarn version patch --no-git-tag-version
+
+          # Get the new version
+          NEW_VERSION=$(node -p "require('./package.json').version")
+          echo "NEW_VERSION=${NEW_VERSION}" >> $GITHUB_ENV
+          echo "New version: ${NEW_VERSION}"
+
+      - name: Commit Version Change
+        run: |
+          git add package.json
+          git commit -m "chore: bump version to v${{ env.NEW_VERSION }} [skip ci]"
+          git push
+
+      - name: Create Git Tag
+        run: |
+          git tag "v${{ env.NEW_VERSION }}"
+          git push origin "v${{ env.NEW_VERSION }}"
+
+      - name: Publish to NPM
+        run: |
+          yarn publish --access public --non-interactive --new-version ${{ env.NEW_VERSION }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
