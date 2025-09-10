@@ -19,4 +19,4 @@ module.exports = require('@rorysa/prettier-config');
 ```
 
 # Makerlog
-https://rory-log.vercel.app/prettier-config-module
+https://rory0304.github.io/posts/npm-prettier/
